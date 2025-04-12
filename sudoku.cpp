@@ -5,6 +5,10 @@
 using namespace std;
 const int SIZE = 9;     //board size
 
+enum class Difficulty {
+    Easy, Medium, Hard
+};
+
 bool isSafe(const vector<vector<int>>& board, int row, int col, int num) {
     //checking the row
     for (int x = 0; x < SIZE; ++x) {
@@ -27,6 +31,7 @@ bool isSafe(const vector<vector<int>>& board, int row, int col, int num) {
     return true;
 }
 
+//a function that solves Sudoku
 bool solve_sudoku(vector<vector<int>>& board) {
     int row, col;
     bool empty = false;
@@ -54,10 +59,26 @@ bool solve_sudoku(vector<vector<int>>& board) {
     return false;
 }
 
-void generate_sudoku(vector<vector<int>>& board) {
+//a function that generates Sudoku by removing some cells
+void generate_sudoku(vector<vector<int>>& board, Difficulty level) {
     solve_sudoku(board);
 
-    int emptyCells = 40;
+    int emptyCells = 0;
+    //select level
+    switch (level)
+    {
+    case Difficulty::Easy:
+        emptyCells = 20;
+        break;
+    case Difficulty::Medium:
+        emptyCells = 30;
+        break;
+    case Difficulty::Hard:
+        emptyCells = 40;
+        break;
+    default:
+        break;
+    }
     while (emptyCells > 0) {
         int row = rand() % SIZE;
         int col = rand() % SIZE;
@@ -87,7 +108,24 @@ int main()
 {
     srand(time(0));
     vector<vector<int>> board(SIZE, vector<int>(SIZE, 0));
-    generate_sudoku(board);
+
+    int choice;
+    cout << "Choose difficulty level:\n1 - Easy\n2 - Medium\n3 - Hard\n> ";
+    cin >> choice;
+
+    Difficulty level = Difficulty::Medium;
+    switch (choice)
+    {
+    case 1: level = Difficulty::Easy; break;
+    case 2: level = Difficulty::Medium; break;
+    case 3: level = Difficulty::Hard; break;
+    default:
+        cout << "Invalid choice. Defaulting to medium\n";
+        break;
+    }
+
+    generate_sudoku(board, level);
+    //solve_sudoku(board);
     print_board(board);
     return 0;
 }
