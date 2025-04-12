@@ -3,6 +3,17 @@
 #include <cstdlib>
 #include <ctime>
 using namespace std;
+//colors
+#define RESET       "\033[0m"
+#define RED         "\033[31m"
+#define GREEN       "\033[32m"
+#define YELLOW      "\033[33m"
+#define BLUE        "\033[34m"
+#define MAGENTA     "\033[35m"
+#define CYAN        "\033[36m"
+#define WHITE       "\033[37m"
+#define BOLDWHITE   "\033[1;37m"
+
 const int SIZE = 9;     //board size
 
 enum class Difficulty {
@@ -21,6 +32,7 @@ bool isSafe(const vector<vector<int>>& board, int row, int col, int num) {
 
     //checking the 3x3 block
     int start_row = row - row % 3, start_col = col - col % 3;
+
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
             if (board[i + start_row][j + start_col] == num) {
@@ -94,13 +106,22 @@ void generate_sudoku(vector<vector<int>>& board, Difficulty level) {
 void print_board(const vector<vector<int>>& board) {
     for (int row = 0; row < SIZE; ++row){
         for (int col = 0; col < SIZE; ++col) {
-            cout << board[row][col] << " ";
+            int val = board[row][col];
+
+            if (val == 0) {
+                cout << CYAN << "*" << " " << RESET;
+            }
+            else {
+                cout << WHITE << val << " " << RESET;
+            }
             //Dividers for 3x3 blocks
-            if ((col + 1) % 3 == 0 && col != SIZE - 1) cout << "| ";        
+            if ((col + 1) % 3 == 0 && col != SIZE - 1) cout << YELLOW << "| " << RESET;
         }
         cout << endl;
         //Dividers for 3x3 blocks
-        if ((row + 1) % 3 == 0 && row != SIZE - 1) cout << "---------------------" << endl;
+        if ((row + 1) % 3 == 0 && row != SIZE - 1) {
+            cout << YELLOW << "---------------------" << RESET << endl;
+        }
     }
 }
 
