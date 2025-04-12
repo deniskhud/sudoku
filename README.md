@@ -2,34 +2,27 @@
 
 This project is a simple console-based Sudoku puzzle generator and solver written in C++. 
 
+![Sudoku Example](sudoku_example.png)
+
 ## How It Works
 
-1. **Board Generation**:
-   - A 9x9 grid is filled using backtracking to create a valid Sudoku solution.
+1. **Board Generation**  
+   A 9x9 grid is filled using backtracking to create a valid Sudoku solution.
 
-2. **Puzzle Creation**:
-   - A fixed number of cells (currently 40) are emptied to form the actual puzzle.
-   - This number can later be adjusted to control difficulty.
+2. **Puzzle Creation**  
+   A selected number of cells are cleared depending on the difficulty:
+   - Easy: 20 empty cells
+   - Medium: 30 empty cells
+   - Hard: 40 empty cells
 
-3. **Solving**:
-   - The puzzle can be solved by the same backtracking algorithm, checking all constraints.
+3. **Interactive Play**  
+   The player inputs numbers into the puzzle. The game checks for:
+   - Valid range
+   - Attempting to change original numbers
+   - Violations of Sudoku rules
 
-## Example Output
-
-5 3 0 | 0 7 0 | 0 0 0
-
-6 0 0 | 1 9 5 | 0 0 0
-
-0 9 8 | 0 0 0 | 0 6 0
-
-8 0 0 | 0 6 0 | 0 0 3
-
-4 0 0 | 8 0 3 | 0 0 1
-
-7 0 0 | 0 2 0 | 0 0 6
-
-0 6 0 | 0 0 0 | 2 8 0
-
-0 0 0 | 4 1 9 | 0 0 5
-
-0 0 0 | 0 8 0 | 0 7 9
+4. **Color Output**  
+   - Pre-filled cells are white  
+   - Empty cells are cyan `*`  
+   - User input is shown in green  
+   - Errors are displayed in red
